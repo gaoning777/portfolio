@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = 'thisishowyouremindme'
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = 'pythonwalter@gmail.com'
+app.config["MAIL_USERNAME"] = 'gaoning777@gmail.com'
 app.config["MAIL_PASSWORD"] = 'thisishowyouremindme'
 
 db = SQLAlchemy(app)
@@ -80,7 +80,7 @@ def root():
 @app.route('/home')
 def home():
 	color = 'blue'
-	title = "Rishabh Bhardwaj"
+	title = "Ning Gao"
 	titleback = "RB"
 	subtitle = "Coder | Traveler | Athlete | Developer"
 	#subcontent = "Hi there! Polyglot full-stack developer? That's the aim. Steadily reaching there. I'm pursuing my undergrad degree in CS at DA-IICT, and am in my Junior year. I love keeping myself super busy, making things people will use, running, and playing football. Oh and FIFA too :D"
@@ -232,5 +232,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
 	db.create_all()
-	#app.run(host="192.168.150.1",port=8080, debug=True)
 	app.run(host="127.0.0.1", port=8080, debug=True)
