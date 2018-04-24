@@ -16,5 +16,10 @@ sudo pip install flask-mail
 sudo pip install uwsgi
 
 # Run
-# If running using uwsgi
-uwsgi --ini wsgi.ini
+#   If running using uwsgi
+#       run uwsgi --ini wsgi.ini &> wsgi.log &
+#       modify nginx configuration file in /etc/nginx/sites-available/default
+#               location / {
+#                   include uwsgi_params;
+#                   uwsgi_pass unix:/$PROJECT_PATH/NingWebsite/ningwebsite.sock;
+#               }

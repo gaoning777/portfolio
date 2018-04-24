@@ -81,25 +81,25 @@ def root():
 def home():
 	color = 'blue'
 	title = "Ning Gao"
-	titleback = "RB"
-	subtitle = "Coder | Traveler | Athlete | Developer"
-	#subcontent = "Hi there! Polyglot full-stack developer? That's the aim. Steadily reaching there. I'm pursuing my undergrad degree in CS at DA-IICT, and am in my Junior year. I love keeping myself super busy, making things people will use, running, and playing football. Oh and FIFA too :D"
+	titleback = "NG"
+	subtitle = "Coder | Snowboarder | Climber | Hiker"
+	subcontent = "PhD. from CU Boulder"
 	#subcontent = "Me? 5+ apps on Google Plays, developer, creative thinker, problem solver. Undergrad in CS at DA-IICT- Junior year. I love keeping myself super busy, making things people will use, running, and playing football. FIFA 14, labradors, traveling, meeting new people :D"
-	subcontent = '<a href = "/aboutme" class="aref">Here\'s what I\'ve done in the past 2 years.</a>'
+	#subcontent = '<a href = "/aboutme" class="aref">Here\'s what I\'ve done in the past 2 years.</a>'
 	return render_template('home.html',color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
 
-@app.route('/portfolio')
-def portfolio():
+#@app.route('/portfolio')
+#def portfolio():
 
-	projectsFile = app.open_resource('static/projects.json')
-	projects = json.loads(projectsFile.read())['projects']
-
-	color = 'blue'
-	title = "Portfolio"
-	titleback = "CV"
-	subtitle = "A log of my perpetually increasing list of projects."
-	subcontent = "I could have made a fancy resume here, listing my work-exs, education history, but that's boring and we've got LinkedIn for that. This is a log of projects I've worked on indepenently, with organizations, and in my university."
-	return render_template('portfolio.html', projects = projects, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent, resume_pdf_link=resume_pdf_link)
+#	projectsFile = app.open_resource('static/projects.json')
+#	projects = json.loads(projectsFile.read())['projects']
+#
+#	color = 'blue'
+#	title = "Portfolio"
+#	titleback = "CV"
+#	subtitle = "A log of my perpetually increasing list of projects."
+#	subcontent = "I could have made a fancy resume here, listing my work-exs, education history, but that's boring and we've got LinkedIn for that. This is a log of projects I've worked on indepenently, with organizations, and in my university."
+#	return render_template('portfolio.html', projects = projects, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent, resume_pdf_link=resume_pdf_link)
 
 @app.route('/code')
 def code():
@@ -210,7 +210,7 @@ def contact():
 			flash('All fields are required.')
 			return render_template('contact.html', form = form, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
 		else:
-			msg = Message("Great Website Man!", sender='pythonwalter@gmail.com', recipients=['bhardwaj.rish@gmail.com'])
+			msg = Message("Great Website Man!", sender='pythonwalter@gmail.com', recipients=['gaoning777@gmail.com'])
 			msg.body = """ From: %s <%s> %s """ % (form.c_name.data, form.c_email.data, form.c_msg.data)
 			mail.send(msg)
 			form = ContactForm()
@@ -222,9 +222,9 @@ def contact():
 def aboutme():
 	return render_template('aboutme.html', resume_pdf_link=resume_pdf_link)
 
-@app.route('/places')
-def places():
-	return render_template('places.html')
+#@app.route('/places')
+#def places():
+#	return render_template('places.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
