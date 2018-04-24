@@ -12,3 +12,9 @@ sudo pip install flask-httpauth
 sudo pip install flask_sqlalchemy
 sudo pip install flask-wtf
 sudo pip install flask-mail
+# optional for uwsgi 
+sudo pip install uwsgi
+
+# Run
+# If running using uwsgi
+uwsgi --ini wsgi.ini
