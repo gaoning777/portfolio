@@ -82,8 +82,8 @@ def home():
 	color = 'blue'
 	title = "Ning Gao"
 	titleback = "NG"
-	subtitle = "Coder | Snowboarder | Climber | Hiker"
-	subcontent = "PhD. from CU Boulder"
+	subtitle = "Coder | Snowboarder | Climber | Hiker | Diver"
+	subcontent = "Seattle, WA"
 	#subcontent = "Me? 5+ apps on Google Plays, developer, creative thinker, problem solver. Undergrad in CS at DA-IICT- Junior year. I love keeping myself super busy, making things people will use, running, and playing football. FIFA 14, labradors, traveling, meeting new people :D"
 	#subcontent = '<a href = "/aboutme" class="aref">Here\'s what I\'ve done in the past 2 years.</a>'
 	return render_template('home.html',color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
