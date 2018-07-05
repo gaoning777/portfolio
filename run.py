@@ -50,16 +50,16 @@ def requires_auth(f):
 class Trip():
 	m_name = ""
 	m_text = ""
-	m_dirname = ""
+	m_link = ""
 
-	def __init__(self, m_name, m_text, m_dirname):
+	def __init__(self, m_name, m_text, m_link):
 		self.m_name = m_name
 		self.m_text = m_text
-		self.m_dirname = m_dirname
+		self.m_link = m_link
 
 def add_trips():
 	trips = []
-	trip = Trip("2018 Graduation Trip", "Graduation trip during 2018 summer", "2018_graduation_trip")
+	trip = Trip("2018 Graduation Trip", "Graduation trip during 2018 summer", "https://docs.google.com/document/d/e/2PACX-1vRzoiUUW13gWqwlwos7fvBMWWy7WI-Sfp_Ks2K1ImbdDLGwnfR7BWhP2FNs-prwo7exXCSWF_BHu9oH/pub")
 	trips.append(trip)
 	return trips
 
@@ -155,20 +155,15 @@ def weblog_ind(weblogno):
 				return render_template('weblog_ind.html', weblog = w, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
 		return redirect(url_for('page_not_found'))
 
-@app.route('/travel', defaults={'link':None}, methods = ['GET', 'POST'])
-@app.route('/travel/<link>', methods = ['GET', 'POST'])
-def travel(link):
-	trips = None
-	if link is not None:
-		return render_template(link + '/index.html')
-	else:
-		trips = add_trips()
-		color = 'red'
-		title = "Travel"
-		titleback = "T"
-		subtitle = "A Travel Log"
-		subcontent = "To live is to enjoy the beauties that our nature has to offer."
-		return render_template('travel.html', 	trips = trips, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
+@app.route('/travel', methods = ['GET', 'POST'])
+def travel():
+	trips = add_trips()
+	color = 'red'
+	title = "Travel"
+	titleback = "T"
+	subtitle = "A Travel Log"
+	subcontent = "To live is to enjoy the beauties that our nature has to offer."
+	return render_template('travel.html', 	trips = trips, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
 
 @app.route('/contact', methods = ['POST', 'GET'])
 def contact():
