@@ -1,15 +1,15 @@
 from flask import Flask, jsonify, request, make_response, Response, flash
-from flask.ext.httpauth import HTTPBasicAuth
+from flask_httpauth import HTTPBasicAuth
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, redirect, url_for
 import random, time
 from socket import gethostname
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import StringField, TextField, TextAreaField, SubmitField, IntegerField
 from wtforms import validators
 from functools import wraps
 import re, json
-from flask.ext.mail import Message, Mail
+from flask_mail import Message, Mail
 
 mail = Mail()
 app = Flask(__name__)
