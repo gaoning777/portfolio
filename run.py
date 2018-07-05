@@ -1,6 +1,8 @@
+from __future__ import print_function
+import sys
+
 from flask import Flask, jsonify, request, make_response, Response, flash
 from flask_httpauth import HTTPBasicAuth
-from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, redirect, url_for
 import random, time
 from socket import gethostname
@@ -13,7 +15,6 @@ from flask_mail import Message, Mail
 
 mail = Mail()
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///me5.db'
 app.config['SECRET_KEY'] = 'thisishowyouremindme'
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -22,7 +23,6 @@ app.config["MAIL_USE_SSL"] = True
 app.config["MAIL_USERNAME"] = 'gaoning777@gmail.com'
 app.config["MAIL_PASSWORD"] = 'thisishowyouremindme'
 
-db = SQLAlchemy(app)
 auth = HTTPBasicAuth()
 mail.init_app(app)
 
@@ -47,26 +47,21 @@ def requires_auth(f):
 		return f(*args, **kwargs)
 	return decorated
 
-class Music(db.Model):
-	id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-	m_name = db.Column(db.String)
-	m_link = db.Column(db.String)
-	m_text = db.Column(db.Text)
-	m_date = db.Column(db.String)
-	m_weight = db.Column(db.Integer)
+class Trip():
+	m_name = ""
+	m_text = ""
+	m_dirname = ""
 
-	def __init__(self, m_name, m_link, m_text, m_date, m_weight):
+	def __init__(self, m_name, m_text, m_dirname):
 		self.m_name = m_name
-		self.m_link = m_link
 		self.m_text = m_text
-		self.m_date = m_date
-		self.m_weight = m_weight
+		self.m_dirname = m_dirname
 
-class MusicForm(Form):
-	mf_name = StringField('mf_name', validators=[validators.required()])
-	mf_link = StringField('mf_link', validators=[validators.required()])
-	mf_text = TextAreaField('mf_text', validators=[validators.required(),validators.optional()])
-	mf_weight = IntegerField('mf_weight', validators=[validators.required()])
+def add_trips():
+	trips = []
+	trip = Trip("2018 Graduation Trip", "Graduation trip during 2018 summer", "2018_graduation_trip")
+	trips.append(trip)
+	return trips
 
 class ContactForm(Form):
 	c_name = StringField('c_name', validators=[validators.required()])
@@ -160,41 +155,20 @@ def weblog_ind(weblogno):
 				return render_template('weblog_ind.html', weblog = w, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
 		return redirect(url_for('page_not_found'))
 
-@app.route('/add/<addwhat>', methods = ['POST', 'GET'])
-@requires_auth
-def addContent(addwhat):
-	if addwhat == 'song' or addwhat == 'music':
-		form = MusicForm()
-		if request.method == 'POST':
-			if form.validate_on_submit():
-				music = Music(form.mf_name.data,form.mf_link.data,form.mf_text.data, current_time_in_millis(), form.mf_weight.data)
-				db.session.add(music)
-				db.session.commit()
-				return redirect(url_for('music', link = None))
-			else :
-				return 'invalid details entered'
-		else:
-			return render_template("music_create.html", form = form)
-
-@app.route('/music', defaults={'link':None}, methods = ['GET', 'POST'])
-@app.route('/music/<link>', methods = ['GET', 'POST'])
-def music(link):
-	songs = None
-	if link == None:
-		songs = Music.query.all()
-	elif link == 'random-list':
-		songs = Music.query.all()
-		random.shuffle(songs, random.random)
-	elif link == 'favorites':
-		songs = Music.query.filter_by(m_weight = 1).all()
-
-	if songs is not None:
+@app.route('/travel', defaults={'link':None}, methods = ['GET', 'POST'])
+@app.route('/travel/<link>', methods = ['GET', 'POST'])
+def travel(link):
+	trips = None
+	if link is not None:
+		return render_template(link + '/index.html')
+	else:
+		trips = add_trips()
 		color = 'red'
-		title = "Music"
-		titleback = "M"
-		subtitle = "A Music Log"
-		subcontent = "Without songs, you simply cannot spend half your day on a laptop writing code. So here's a throwback to the songs I love. - Some I am currently listening to, some I had a phase of, and some that'll remain in my playlist even when Im 70."
-		return render_template('music.html', 	songs = songs, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
+		title = "Travel"
+		titleback = "T"
+		subtitle = "A Travel Log"
+		subcontent = "To live is to enjoy the beauties that our nature has to offer."
+		return render_template('travel.html', 	trips = trips, color = color, title = title, titleback = titleback, subtitle = subtitle, subcontent = subcontent)
 
 @app.route('/contact', methods = ['POST', 'GET'])
 def contact():

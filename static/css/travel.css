@@ -1,4 +1,4 @@
-#music-box{
+#travel-box{
 	border-style: solid;
 	border-color: #AAA;
 	border-radius: 5px;
@@ -7,7 +7,7 @@
 	box-shadow: 1px 1px 1px #CCC;
 }
 
-#music-text{
+#travel-text{
 	color: #787878;
 	text-align: center;
 	font-size: 0.9em;
@@ -16,13 +16,13 @@
 	margin-top: 1%;
 }
 
-#music-name:link{
+#travel-name:link{
 	color: #212121;
 	font-size: 1.5em;
 	padding: 2px;
 }
 
-#music-name:hover{
+#travel-name:hover{
 	color: #f1c40f;
 	text-decoration: none;
 	-webkit-transition: .2s;

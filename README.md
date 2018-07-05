@@ -27,3 +27,6 @@ nginx related configurations are in "*/etc/nginx/sites-available/default*"
 #                   uwsgi_pass unix:/$PROJECT_PATH/NingWebsite/ningwebsite.sock;
 #               }
 -->
+
+# Add trips to the travel
+If you obtain the travel documents from google doc, store the html in templates/#trip_name/ directory and the images in static/images/trip_name/ directory. (TODO)The images are not retrieved correctly for now.
